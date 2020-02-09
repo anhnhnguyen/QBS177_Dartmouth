@@ -1,0 +1,22 @@
+Country	smoking prevalence in %
+Bangladesh	20.55
+Barbados	6.42
+China	22.99
+Columbia	10.77
+Finland	17.58
+Gambia	10.34
+India	11.74
+Italy	24.19
+Japan	22.15
+Kenya	8.88
+Mexico	9.59
+Nigeria	3.73
+Pakistan	14.83
+Peru	11.92
+Purto Rico	9.78
+Sierra Leone	15.71
+Spain	26.1
+Sri Lankan	10.57
+England	21.26
+USA	15.11
+Vietnam	18.88

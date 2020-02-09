@@ -1,0 +1,59 @@
+#files<-dir()[-1]
+
+country <- NULL
+
+for (i in 1:length(files)){
+
+temp <- substr(files[i], 6,8)    # read the population code
+country<- c(country,temp)
+
+}
+
+
+i=1
+data<-read.delim(files[i])
+nsam <- dim(data)[1]
+rmno <- (1:nsam)[is.na(data[,6])] 
+if(length(rmno)) data <- data[-rmno, ]  # remove an loci without the minor allele count
+data1 <- data[data[,3]==2, 5:6]  #only consider 1 minor allele.
+
+
+
+for (i in 2:length(files)){  # repeat for the rest of data
+
+data<-read.delim(files[i])
+if(length(rmno)) data <- data[-rmno, ]   
+data1 <- data[data[,3]==2, 5:6] + data1
+
+
+}
+
+asddd <- as.numeric(data1[,1]>=data1[,2])
+
+
+fulldat <- rep(0,length(asddd))
+
+i=1
+data<-read.delim(files[i])
+nsam <- dim(data)[1]
+rmno <- (1:nsam)[is.na(data[,6])]
+if(length(rmno)) data <- data[-rmno, ]  
+location <- data[data[,3]==2,2]    # location info
+chr <- data[data[,3]==2,1]            # chomosome info
+data2 <- data[data[,3]==2, 5:6]
+fulldat[asddd==1] <- data2[asddd==1,2]/data[1,4]   # calculate the minor allele frequncy
+fulldat[asddd==0] <- data2[asddd==0,1]/data[1,4]   # calculate the minor allele frequncy
+
+
+
+for (i in 2:length(files)){
+
+data<-read.delim(files[i])
+if(length(rmno)) data <- data[-rmno, ]
+data2 <- data[data[,3]==2, 5:6]
+tempdat <- rep(0,length(asddd))
+tempdat[asddd==1] <- data2[asddd==1,2]/data[1,4]
+tempdat[asddd==0] <- data2[asddd==0,1]/data[1,4]
+fulldat <- cbind(fulldat, tempdat)
+
+}
